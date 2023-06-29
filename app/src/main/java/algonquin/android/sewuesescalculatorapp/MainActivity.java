@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn = findViewById(id);
         btn.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
         MaterialButton button = (MaterialButton) view;
@@ -67,9 +68,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         if(buttonText.equals("C")){
-            datatoCalculate = datatoCalculate.substring(0,datatoCalculate.length()-1);
+            if (datatoCalculate.length() > 0) {
+                datatoCalculate = datatoCalculate.substring(0, datatoCalculate.length() - 1);
+            }
+            if (datatoCalculate.length() == 0) {
+                solutionTV.setText("");
+                resultTV.setText("0");
+                return;
+            }
         } else {
-            datatoCalculate = datatoCalculate+buttonText;
+            datatoCalculate = datatoCalculate + buttonText;
         }
         solutionTV.setText(datatoCalculate);
         String finalResult = getResult(datatoCalculate);
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             resultTV.setText(finalResult);
         }
     }
+
     String getResult(String data){
         try {
             Context context = Context.enter();
